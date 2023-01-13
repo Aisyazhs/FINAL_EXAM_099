@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<br>
+
+<head>
+    <title>Final Exam</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        function get() {
+            let view = document.getElementById("view");
+
+            $.ajax({
+                url: 'http://localhost:8080/GET',
+                dataType: 'text',
+                success: function(result) {
+                    view.innerHTML = result;
+                }
+            })
+        }
+
+        function post() {
+            let view = document.getElementById("view");
+            let noSurat = document.getElementById("noSurat").value;
+            let Judul = document.getElementById("Judul").value;
+            let Tembusan = document.getElementById("Tembusan").value;
+            let File = document.getElementById("File").value;
+            let Time = document.getElementById("Time").value;
+            let json = {
+                "noSurat": noSurat,
+                "Judul": Judul,
+                "Tembusan": Tembusan,
+                "File": File,
+                "Time": Time
+            };
+            let obj = JSON.stringify(json);
+
+            $.ajax({
+                url: 'http://localhost:8080/POST',
+                data: obj,
+                method: 'POST',
+                contentType: 'application/json',
+                dataType: 'text',
+                success: function(result) {
+                    view.innerHTML = result;
+                }
+            })
+        }
+
+        function put() {
+            let view = document.getElementById("view");
+            let noSurat = document.getElementById("noSurat").value;
+            let Judul = document.getElementById("Judul").value;
+            let Tembusan = document.getElementById("Tembusan").value;
+            let File = document.getElementById("File").value;
+            let Time = document.getElementById("Time").value;
+            let json = {
+                "noSurat": noSurat,
+                "Judul": Judul,
+                "Tembusan": Tembusan,
+                "File": File,
+                "Time": Time
+
+            };
+            let obj = JSON.stringify(json);
+
+            $.ajax({
+                url: 'http://localhost:8080/PUT',
+                data: obj,
+                method: 'PUT',
+                contentType: 'application/json',
+                dataType: 'text',
+                success: function(result) {
+                    view.innerHTML = result;
+                }
+            })
+        }
+
+        function del() {
+            let id = document.getElementById("id").value;
+            let json = {
+                id: id
+            };
+            let obj = JSON.stringify(json);
+            //view.innerhtml = "alo";
+            $.ajax({
+                url: 'http://localhost:8080/Delete',
+                data: obj,
+                method: 'DELETE',
+                contentType: 'application/json',
+                dataType: 'text',
+                success: function(result) {
+                    view.innerHTML = result;
+                }
+            })
+        }
+    </script>
+</head>
+
+<br>
+<div>RESTful Surat</div>
+<p>nomor Surat</p>
+<input type="text" id="noSurat" name="noSurat"> <br></br>
+<p>Judul</p>
+<input type="text" id="Judul" name="Judul"> <br></br>
+<p>Tembusan</p>
+<input type="text" id="Tembusan" name="Tembusan"><br></br>
+<p>File</p>
+<input type="application/pdf" width="600" height="400" id="File" name="File"><br></br>
+<p>Time</p>
+<input type="date" id="Time" name="Time"><br></br>
+
+<br>
+<button onclick="get()">GET</button>
+<button onclick="post()">POST</button>
+<button onclick="put()">PUT</button>
+<button onclick="del()">DELETE</button>
+<br><br>
+<div id="view">
+    </body>
+
+    </html>
